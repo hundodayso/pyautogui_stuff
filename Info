@@ -1,0 +1,23 @@
+####some notes:
+###Portrait###
+#Top Left: x785, y=145
+#Bottom Right: x1759, y=1404
+#Difference: x=974, y=1260
+
+####LANDSCAPE####
+#Top Left: x=642, y=145
+#Btoom Right: x=1902, y=1118
+#Difference: x=1260, y=974
+
+####LANDSCAPE PAGE FIT####
+#Top Left: x=456, y=145
+#Bottom Right: x=2086, y=1405
+#Difference: x=1640, y=1260
+
+
+###MENU
+# x = 2541, y = 129
+#Rotate ClockW: x=2418, y=298
+#Rotate Anti Clockw: x=2418, y=327
+#grey colour = 42,42,46
+#check Grey = 2000, 200
