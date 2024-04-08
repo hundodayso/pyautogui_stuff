@@ -2,6 +2,7 @@ import pyautogui
 import PIL
 import time
 import cv2
+import os
 
 
 
@@ -13,31 +14,58 @@ IMG_CHECK_Y = 200
 IMG_CHECK_X = 1539
 
 
-def is_portrait(pixel_colour):
+def is_rotated(pixel_colour):
     colour_total = 0
 
     for colour in pixel_colour:
-        print(f'This is the {colour}')
+        #print(f'This is the {colour}')
         colour_total += colour
-        print(f'This is the total: {colour_total}')
+        #print(f'This is the total: {colour_total}')
     if colour_total == 130:
         return True
     else:
         return False
 
+def rotate_clockwise():
+    #open menu
+    pyautogui.click(2541, 129)
+    #rotate page
+    pyautogui.click(2418, 298)
+    #close menu
+    pyautogui.click(2541, 129)
 
+def rotate_anticlockwise():
+    # open menu
+    pyautogui.click(2541, 129)
+    # rotate page
+    pyautogui.click(2418, 327)
+    # close menu
+    pyautogui.click(2541, 129)
 
-
-for i in range(0,3):
-    time.sleep(1)
+def take_screenshot(i):
     im = pyautogui.screenshot(region=LANDSCAPE_REGION_PGFIT)
     im_filename = (f'screenshot{i}.png')
     im.save(im_filename)
+    return im_filename
 
-    cv2_img = cv2.imread(im_filename,1)
+for i in range(0,3):
+    time.sleep(1)
+    filename = take_screenshot(i)
+
+    cv2_img = cv2.imread(filename,1)
     colour_check = cv2_img[IMG_CHECK_Y][IMG_CHECK_X]
-    print(f'This is colourcheck: {colour_check}')
-    is_portrait(colour_check)
+
+    if is_rotated(colour_check):
+        print("true")
+        os.remove(filename)
+        rotate_clockwise()
+        time.sleep(1)
+        take_screenshot(i)
+        rotate_anticlockwise()
+
+    else:
+        cv2.rotate(cv2_img, cv2.ROTATE_90_CLOCKWISE)
+        print("false")
 
 
 
